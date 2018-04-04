@@ -15,15 +15,17 @@ class Issue(object):
     '''
 
     def __init__(self, stream):
+	stream.decode_content= True
         self.logger = getLogger('py4j')
         # Try hard to parse the file, even if it looks like this:
         # <wd pos="1664,5777,2052,5799">Bart,OwnerndPetitioner.Take/wd>
         parser = etree.XMLParser(recover=True)
+       
         try:
-            self.tree = etree.parse(stream, parser)
-        except etree.XMLSyntaxError as error:
-            self.logger.error("Error when parsing %s: %s", error.code,
-                              error.msg)
+	   self.tree = etree.parse(stream)
+           #self.tree = etree.parse(stream, parser)
+        except:
+            self.logger.error("Error when parsing")
             self.tree = None
             self.issue = ''
             self.articles = []
@@ -31,18 +33,6 @@ class Issue(object):
             self.page_count = 0
             self.day_of_week = ''
             return
-        except error:
-            try:
-                self.tree = etree.parse(stream, parser)
-            except Exception as error2:
-                self.logger.error("Something terrible happened: %s", error2)
-                self.tree = None
-                self.issue = ''
-                self.articles = []
-                self.date = datetime.now()
-                self.page_count = 0
-                self.day_of_week = ''
-                return
         # DTD says there's only one issue element
         # Note there are two different DTDs:
         # GALENP: /GALENP/*/issue/page/article/text/*/p/wd

@@ -15,8 +15,6 @@ def get_streams(context, source="oids.txt"):
     oids = [oid.strip() for oid in list(open(source))]
 
     rddoids = context.parallelize(oids)
-    issues = rddoids.map(lambda (oid): 'http://' + DATA_STORE_URL +
-                         '/objects/' + oid) \
-                    .map(lambda url: get(url, stream=True)) \
-                    .map(lambda stream: Issue(stream.raw))
+    issues_1 = rddoids.map(lambda url: get(url, stream=True))
+    issues = issues_1.map(lambda stream: Issue(stream.raw))
     return issues

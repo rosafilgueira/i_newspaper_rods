@@ -1,0 +1,1 @@
+https://raw.githubusercontent.com/UCL/i_newspaper_rods/monopoly/newsrods/test/fixtures/2000_04_24.xml

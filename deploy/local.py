@@ -13,10 +13,9 @@ def setup(query, datafile, years_per_chunk=1e10, number_oid=-1):
     Prepare instance for running. Generates necessary files and installs
     packages
     '''
-    execute(dependencies)
     execute(install, query=query, datafile=datafile)
-    execute(storeids, number=number_oid)
-    execute(breakup, years_per_chunk=int(years_per_chunk))
+    #execute(storeids, number=number_oid)
+    #execute(breakup, years_per_chunk=int(years_per_chunk))
 
 
 @task
@@ -30,6 +29,7 @@ def install(query, datafile):
         local('cp -r ../newsrods .')
         local('cp ../' + query + ' ./newsrods/query.py')
         local('cp ../' + datafile + ' input.1.data')
+        local('cp ../oids.1.txt oids.1.txt')
         local('find . -iname "*.pyc" -delete')
         local('find . -iname "__pycache__" -delete')
 
