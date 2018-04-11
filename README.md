@@ -27,7 +27,7 @@ reasons for it:
 
 # Local Machine Requirements
 
-  * Apache Spark
+  * Apache Spark (Install Spark- Mac os x: brew install apache-spark)
   * Python 2.7
   * iCommands (kanki if you're on OS X , see below)
 
